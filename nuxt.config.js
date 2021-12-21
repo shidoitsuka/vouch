@@ -43,7 +43,7 @@ export default {
     sockets: [ // Required
       { // At least one entry is required
         name: 'chat',
-        url: 'https://gossamer-spiffy-uncle.glitch.me/',
+        url: 'https://gossamer-spiffy-uncle.glitch.me',
         default: true,
         vuex: { /* see section below */ },
         namespaces: { /* see section below */ }
@@ -60,7 +60,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: "https://gossamer-spiffy-uncle.glitch.me/",
+    baseURL: "https://gossamer-spiffy-uncle.glitch.me",
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
