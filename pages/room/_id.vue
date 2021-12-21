@@ -4,16 +4,17 @@
       <span class="absolute primary--text"
         ><NuxtLink class="text-decoration-none" to="/">Exit</NuxtLink></span
       >
-      <h1 class="mx-auto" @click="logChat">Room #{{ $route.params.id }}</h1>
+      <h1 class="mx-auto">Room #{{ $route.params.id }}</h1>
     </v-col>
 
     <v-col cols="12">
-      <div class="chat-container">
+      <div class="chat-container" ref="chatContainer">
         <v-col
           cols="12"
-          v-for="chatItem of chats"
+          v-for="(chatItem, index) of chats"
           :key="chatItem._id"
           v-bind:class="{ 'text-right': chatItem.username == currentUser }"
+          v-bind:ref="index == chats.length - 1 ? 'lastChat' : null"
         >
           <p v-if="chatItem.username != currentUser" class="username">
             {{ chatItem.username }}
@@ -62,6 +63,9 @@ export default {
     chats() {
       return this.tmpChats;
     },
+    chatHeight() {
+      return this.$refs.chatContainer.clientHeight;
+    }
   },
   beforeDestroy() {
     this.socket.disconnect();
@@ -74,7 +78,13 @@ export default {
     this.currentUser = localStorage.getItem("username");
     this.getChatData();
   },
+  updated() {
+    this.scrollToBottomChat();
+  },
   methods: {
+    scrollToBottomChat() {
+      this.$refs.chatContainer.scrollTop = this.chatHeight * this.chats.length;
+    },
     sendMessage() {
       this.socket.emit("chat", { username: this.currentUser, room: this.$route.params.id, text: this.chat }, (res) => {});
       this.$axios.post(`/chat/${this.$route.params.id}`, {
@@ -82,9 +92,7 @@ export default {
         username: this.currentUser,
       });
       this.chat = "";
-    },
-    logChat() {
-      console.log(this.chats);
+      this.$refs.chatContainer.scrollTop = this.chatHeight + 5000;
     },
     getChatData() {
       this.$axios.get(`/chat/${this.$route.params.id}`).then((res) => {
