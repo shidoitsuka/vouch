@@ -51,7 +51,7 @@ export default {
     ],
      server: {
       cors: {
-        credentials: true, // "Configures the Access-Control-Allow-Credentials CORS header. Set to true to pass the header, otherwise it is omitted."
+        credentials: false, // "Configures the Access-Control-Allow-Credentials CORS header. Set to true to pass the header, otherwise it is omitted."
         origin: ['https://gossamer-spiffy-uncle.glitch.me/'] // Array of whitelisted origin(s)
       }  
      }
