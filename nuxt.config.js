@@ -1,6 +1,7 @@
 import colors from "vuetify/es5/util/colors";
 
 export default {
+  target: "static",
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -86,5 +87,8 @@ export default {
   server: {
     host: "localhost",
     port: 3000,
-  }
+  },
+  generate: {
+    fallback: true
+  },
 };
