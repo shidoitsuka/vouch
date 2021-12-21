@@ -71,11 +71,18 @@ export default {
     this.socket.disconnect();
   },
   mounted() {
+    if (this.$route.params.id == undefined) {
+      this.$router.push("/");
+    }
     this.socket = this.$nuxtSocket({ channel: "/" });
     this.socket.on(`chat/${this.$route.params.id}`, (response) => {
       this.tmpChats.push(response);
     });
-    this.currentUser = localStorage.getItem("username");
+    if (localStorage.getItem("username") != null) {
+      this.currentUser = localStorage.getItem("username");
+    } else {
+      this.currentUser = "Anonymous";
+    }
     this.getChatData();
   },
   updated() {
