@@ -85,6 +85,6 @@ export default {
   build: {},
   server: {
     host: "localhost",
-    port: 3001,
+    port: 3000,
   }
 };
